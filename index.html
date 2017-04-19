@@ -1,0 +1,292 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        window.Overwatch = {};
+        Overwatch.heroChart = [[0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],                //Ana
+                               [-1, 0, -2, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 2, -1, -1, -2, 0, 0, -1, -1, 2, 1, 0],      //Bastion
+                               [0, 2, 0, 0, 2, 0, 0, 0, -2, 2, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 2, 0, -2, 0],            //D.Va
+                               [0, 1, 0, 0, 2, 0, 0, 0, -2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, -2, -2, 0],             //Genji
+                               [0, 1, -2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, -2, -1, -2, 0, 0],           //Hanzo
+                               [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 2, 0, 0, 0, 0, 2, 0, -2, 0, -1, 0],             //Junkrat
+                               [-1, 0, 0, 0, 0, 0, 0, -2, -2, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],            //Lucio
+                               [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],                //McCree
+                               [0, 0, 2, 2, 0, 0, 2, 0, 0, 0, 0, -1, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0],              //Mei
+                               [-1, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],            //Mercy
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],                //Orisa
+                               [-1, 0, 1, 0, 0, 2, 0, -2, 1, 0, 0, 0, 2, 2, 0, -2, 0, 2, 0, 0, -2, 0, 2, 0],            //Pharah
+                               [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2],               //Reaper
+                               [0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, -2, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0],            //Reinhard
+                               [0, 1, 0, 0, 0, 0, 1, 0, -2, 1, 0, 0, -2, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0],              //Roadhog
+                               [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0],                //Soldier 76
+                               [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],                //Sombra
+                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0],              //Symmetra
+                               [-1, 0, 0, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 1, -2, 0, -2, 0],          //Torbjorn
+                               [0, 1, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, -1, 0, -2, 0, -1, 0, 0, 0, 0, 2],            //Tracer
+                               [0, 1, -2, -2, 1, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, -2, 0, 0],             //Widowmaker
+                               [0, -2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, -2, 0, -2, 0, 0, 2, 0, 0, 2, 0, 0, 2],             //Winston
+                               [0, -1, 2, 2, 0, 1, 0, 0, 1, 0, 0, -2, -1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2],             //Zarya
+                               [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, -2, 0, 0, -2, 0]             //Zenyatta
+        ]
+        Overwatch.heroArrayNum = ["#s_Ana", "#s_Bastion", "#s_DVa", "#s_Genji", "#s_Hanzo", "#s_Junkrat", "#s_Lucio", "#s_McCree",
+                                  "#s_Mei", "#s_Mercy", "#s_Orisa", "#s_Pharah", "#s_Reaper", "#s_Reinhardt", "#s_Roadhog", "#s_Soldier_76",
+                                  "#s_Sombra", "#s_Symmetra", "#s_Torbjorn", "#s_Tracer", "#s_Widowmaker", "#s_Winston", "#s_Zarya", "#s_Zenyatta"];
+        Overwatch.checked = [];
+    </script>
+    <style>
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        input[type="checkbox"][id^="cb"] {
+            display: none;
+        }
+
+        label {
+            border: 1px solid #fff;
+            padding: 10px;
+            display: block;
+            position: relative;
+            margin: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+            label:before {
+                background-color: white;
+                color: white;
+                content: " ";
+                display: block;
+                border-radius: 50%;
+                border: 1px solid grey;
+                position: absolute;
+                top: -5px;
+                left: -5px;
+                width: 25px;
+                height: 25px;
+                text-align: center;
+                line-height: 28px;
+                transition-duration: 0.4s;
+                transform: scale(0);
+            }
+
+            label img {
+                height: 100px;
+                width: 100px;
+                transition-duration: 0.2s;
+                transform-origin: 50% 50%;
+            }
+
+
+        :checked + label {
+            border-color: #ddd;
+        }
+
+            :checked + label:before {
+                content: "X";
+                background-color: grey;
+                transform: scale(1);
+            }
+
+            :checked + label img {
+                transform: scale(0.9);
+                box-shadow: 0 0 5px #333;
+                z-index: -1;
+            }
+            
+            .red {
+                color: red;
+            }
+
+            .blue {
+                color:deepskyblue;
+            }
+    </style>
+    <script>
+        function numOrdAsc(a, b) 
+        {
+            return (a[0] - b[0]);
+        }
+
+        function eachChecked(item, index)
+        {
+            $(item).prop("checked", true);
+        }
+
+        function update_heroes(e) 
+        {
+            //$("input").each(function() {
+            //   if($(this)[0].id === "cb2")
+            //   {
+            //     return false;
+            //   }
+            //   else {
+            //     alert($(this)[0].id);
+            //   }
+            //});
+
+            var hero = e.id;
+            hero = hero.substr(2);
+            hero = "#s" + hero;
+            var heroNumber = jQuery.inArray(hero, Overwatch.heroArrayNum);
+
+            if(jQuery.inArray("#" + e.id, Overwatch.checked) > -1)
+            {
+                $("span").each(function () {
+                    $(this).text(parseInt($(this).text()) + Overwatch.heroChart[heroNumber][jQuery.inArray("#" + $(this)[0].id, Overwatch.heroArrayNum)])
+                    if(parseInt($(this).text()) > 0)
+                    {
+                        $(this).addClass("blue");
+                        $(this).removeClass("red");
+                    }
+                    else if(parseInt($(this).text()) < 0)
+                    {
+                        $(this).addClass("red");
+                        $(this).removeClass("blue");
+                    }
+                    else
+                    {
+                        $(this).removeClass();
+                    }
+                });
+                $("#" + e.id).prop("checked", false);
+                Overwatch.checked.splice(Overwatch.checked.indexOf("#" + e.id), 1);
+            }
+            else
+            {
+                $("span").each(function () {
+                    $(this).text(parseInt($(this).text()) - Overwatch.heroChart[heroNumber][jQuery.inArray("#" + $(this)[0].id, Overwatch.heroArrayNum)])
+                    if (parseInt($(this).text()) > 0) {
+                        $(this).addClass("blue");
+                        $(this).removeClass("red");
+                    }
+                    else if (parseInt($(this).text()) < 0) {
+                        $(this).addClass("red");
+                        $(this).removeClass("blue");
+                    }
+                    else {
+                        $(this).removeClass();
+                    }
+                });
+                Overwatch.checked.push("#" + e.id);
+            }
+            var liContents = [];
+            $('ul li').each(function () {
+                liContents.push([parseInt($(this).text(), 10), $(this)[0].innerHTML]);
+
+            });
+
+            liContents.sort(numOrdAsc);
+            $('ul li').each(function () {
+                $(this)[0].innerHTML = liContents.pop()[1];
+            });
+
+            Overwatch.checked.forEach(eachChecked);
+        }
+    </script>
+</head>
+<body>
+    <ul>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Ana" />
+            <label for="cb_Ana"><img src="./imgs/ana.png" /><br /><span id="s_Ana">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Bastion" />
+            <label for="cb_Bastion"><img src="./imgs/bastion.png" /><br /><span id="s_Bastion">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_DVa" />
+            <label for="cb_DVa"><img src="./imgs/DVa.png" /><br /><span id="s_DVa">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Genji" />
+            <label for="cb_Genji"><img src="./imgs/Genji.png" /><br /><span id="s_Genji">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Hanzo" />
+            <label for="cb_Hanzo"><img src="./imgs/Hanzo.png" /><br /><span id="s_Hanzo">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Junkrat" />
+            <label for="cb_Junkrat"><img src="./imgs/Junkrat.png" /><br /><span id="s_Junkrat">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Lucio" />
+            <label for="cb_Lucio"><img src="./imgs/Lucio.png" /><br /><span id="s_Lucio">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_McCree" />
+            <label for="cb_McCree"><img src="./imgs/McCree.png" /><br /><span id="s_McCree">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Mei" />
+            <label for="cb_Mei"><img src="./imgs/Mei.png" /><br /><span id="s_Mei">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Mercy" />
+            <label for="cb_Mercy"><img src="./imgs/Mercy.png" /><br /><span id="s_Mercy">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Orisa" />
+            <label for="cb_Orisa"><img src="./imgs/Orisa.png" /><br /><span id="s_Orisa">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Pharah" />
+            <label for="cb_Pharah"><img src="./imgs/Pharah.png" /><br /><span id="s_Pharah">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Reaper" />
+            <label for="cb_Reaper"><img src="./imgs/Reaper.png" /><br /><span id="s_Reaper">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Reinhardt" />
+            <label for="cb_Reinhardt"><img src="./imgs/Reinhardt.png" /><br /><span id="s_Reinhardt">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Roadhog" />
+            <label for="cb_Roadhog"><img src="./imgs/Roadhog.png" /><br /><span id="s_Roadhog">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Soldier_76" />
+            <label for="cb_Soldier_76"><img src="./imgs/Soldier 76.png" /><br /><span id="s_Soldier_76">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Sombra" />
+            <label for="cb_Sombra"><img src="./imgs/Sombra.png" /><br /><span id="s_Sombra">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Symmetra" />
+            <label for="cb_Symmetra"><img src="./imgs/Symmetra.png" /><br /><span id="s_Symmetra">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Torbjorn" />
+            <label for="cb_Torbjorn"><img src="./imgs/Torbjorn.png" /><br /><span id="s_Torbjorn">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Tracer" />
+            <label for="cb_Tracer"><img src="./imgs/Tracer.png" /><br /><span id="s_Tracer">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Widowmaker" />
+            <label for="cb_Widowmaker"><img src="./imgs/Widowmaker.png" /><br /><span id="s_Widowmaker">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Winston" />
+            <label for="cb_Winston"><img src="./imgs/Winston.png" /><br /><span id="s_Winston">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Zarya" />
+            <label for="cb_Zarya"><img src="./imgs/Zarya.png" /><br /><span id="s_Zarya">0</span></label>
+        </li>
+        <li>
+            <input type="checkbox" onclick="update_heroes(this)" id="cb_Zenyatta" />
+            <label for="cb_Zenyatta"><img src="./imgs/Zenyatta.png" /><br /><span id="s_Zenyatta">0</span></label>
+        </li>
+    </ul>
+</body>
+</html>
